@@ -1,0 +1,376 @@
+# Enable the subsequent settings only in interactive sessions
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+# Deduplicate PATH to prevent performance issues
+if [ -n "$PATH" ]; then
+    old_PATH=$PATH:
+    PATH=
+    while [ -n "$old_PATH" ]; do
+        x=${old_PATH%%:*}
+        case $PATH: in
+            *:"$x":*) ;;
+            *) PATH=$PATH:$x;;
+        esac
+        old_PATH=${old_PATH#*:}
+    done
+    PATH=${PATH#:}
+    unset old_PATH x
+fi
+
+# Path to your oh-my-bash installation.
+# DISABLED FOR WARP COMPATIBILITY - Oh-My-Bash conflicts with Warp's prompt handling
+# export OSH='/home/pi/.oh-my-bash'
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-bash is loaded.
+# OSH_THEME="powerline"
+
+# If you set OSH_THEME to "random", you can ignore themes you don't like.
+# OMB_THEME_RANDOM_IGNORED=("powerbash10k" "wanelo")
+# You can also specify the list from which a theme is randomly selected:
+# OMB_THEME_RANDOM_CANDIDATES=("font" "powerline-light" "minimal")
+
+# Uncomment the following line to use case-sensitive completion.
+# OMB_CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# OMB_HYPHEN_SENSITIVE="false"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_OSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you don't want the repository to be considered dirty
+# if there are untracked files.
+# SCM_GIT_DISABLE_UNTRACKED_DIRTY="true"
+
+# Uncomment the following line if you want to completely ignore the presence
+# of untracked files in the repository.
+# SCM_GIT_IGNORE_UNTRACKED="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.  One of the following values can
+# be used to specify the timestamp format.
+# * 'mm/dd/yyyy'     # mm/dd/yyyy + time
+# * 'dd.mm.yyyy'     # dd.mm.yyyy + time
+# * 'yyyy-mm-dd'     # yyyy-mm-dd + time
+# * '[mm/dd/yyyy]'   # [mm/dd/yyyy] + [time] with colors
+# * '[dd.mm.yyyy]'   # [dd.mm.yyyy] + [time] with colors
+# * '[yyyy-mm-dd]'   # [yyyy-mm-dd] + [time] with colors
+# If not set, the default value is 'yyyy-mm-dd'.
+# HIST_STAMPS='yyyy-mm-dd'
+
+# Uncomment the following line if you do not want OMB to overwrite the existing
+# aliases by the default OMB aliases defined in lib/*.sh
+# OMB_DEFAULT_ALIASES="check"
+
+# Would you like to use another custom folder than $OSH/custom?
+# OSH_CUSTOM=/path/to/new-custom-folder
+
+# DISABLED FOR WARP COMPATIBILITY - Oh-My-Bash configuration kept for reference
+# Uncomment and modify these if you decide to re-enable Oh-My-Bash in the future
+
+# To disable the uses of "sudo" by oh-my-bash, please set "false" to
+# this variable.  The default behavior for the empty value is "true".
+# OMB_USE_SUDO=true
+
+# To enable/disable display of Python virtualenv and condaenv
+# OMB_PROMPT_SHOW_PYTHON_VENV=true  # enable
+# OMB_PROMPT_SHOW_PYTHON_VENV=false # disable
+
+# To enable/disable Spack environment information
+# OMB_PROMPT_SHOW_SPACK_ENV=true  # enable
+# OMB_PROMPT_SHOW_SPACK_ENV=false # disable
+
+# Which completions would you like to load? (completions can be found in ~/.oh-my-bash/completions/*)
+# Custom completions may be added to ~/.oh-my-bash/custom/completions/
+# Example format: completions=(ssh git bundler gem pip pip3)
+# Add wisely, as too many completions slow down shell startup.
+# completions=(
+#   git
+#   composer
+#   ssh
+# )
+
+# Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
+# Custom aliases may be added to ~/.oh-my-bash/custom/aliases/
+# Example format: aliases=(vagrant composer git-avh)
+# Add wisely, as too many aliases slow down shell startup.
+# aliases=(
+#   general
+# )
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
+# Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(
+#   git
+#   bashmarks
+# )
+
+# Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
+# Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
+# Example format:
+#  if [ "$DISPLAY" ] || [ "$SSH" ]; then
+#      plugins+=(tmux-autoattach)
+#  fi
+
+# If you want to reduce the initialization cost of the "tput" command to
+# initialize color escape sequences, you can uncomment the following setting.
+# This disables the use of the "tput" command, and the escape sequences are
+# initialized to be the ANSI version:
+#
+#OMB_TERM_USE_TPUT=no
+
+# DISABLED FOR WARP COMPATIBILITY - Oh-My-Bash conflicts with Warp's prompt handling
+# source "$OSH"/oh-my-bash.sh
+
+# User configuration
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-bash libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-bash
+# users are encouraged to define aliases within the OSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias bashconfig="mate ~/.bashrc"
+# alias ohmybash="mate ~/.oh-my-bash"
+. "$HOME/.cargo/env"
+
+# Dotnet Configuration
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+
+# Neovim Configuration
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+# NVM Configuration - Lazy Loaded
+export NVM_DIR="$HOME/.nvm"
+load_nvm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+
+nvm() { load_nvm; nvm "$@"; }
+node() { load_nvm; node "$@"; }
+npm() { load_nvm; npm "$@"; }
+npx() { load_nvm; npx "$@"; }
+
+# Initialize Ble.sh (if available) - MUST BE BEFORE STARSHIP
+# if [[ -f ~/.local/share/blesh/ble.sh ]]; then
+#    source ~/.local/share/blesh/ble.sh
+# fi
+
+# Initialize Starship
+eval "$(starship init bash)"
+
+# DISABLED FOR WARP COMPATIBILITY - Transient prompts conflict with Warp's prompt handling
+# Configure transient prompt (must be after ble.sh is loaded)
+# if [[ ${BLE_VERSION-} ]]; then
+#     # Enable transient prompts
+#     bleopt prompt_ps1_transient=always
+#     bleopt prompt_rps1_transient=always
+#
+#     # Configure what gets displayed after command execution
+#     bleopt prompt_ps1_final='$(starship module character)'
+#     bleopt prompt_rps1_final='$(starship module time)'
+# fi
+# =============================================================================
+# N-COMPASSTV PROJECT NAVIGATION
+# =============================================================================
+
+# Project aliases
+alias cdntv='cd ~/n-compasstv'
+alias cdapi='cd ~/n-compasstv/api-v1'
+alias cdapi-wt='cd ~/n-compasstv/api-v1-worktrees'
+alias cddash='cd ~/n-compasstv/dashboard-v1'
+alias cddash-wt='cd ~/n-compasstv/dashboard-v1-worktrees'
+alias cdplayer='cd ~/n-compasstv/player-server'
+alias cdplayer-wt='cd ~/n-compasstv/player-server-worktrees'
+alias cdui='cd ~/n-compasstv/player-ui'
+
+# N-CompassTV navigation function with tab completion
+ntv() {
+    if [ $# -eq 0 ]; then
+        cd ~/n-compasstv
+        echo "📁 N-CompassTV root directory"
+        ls -1 ~/n-compasstv/ | sed 's/^/  • /'
+    else
+        case "$1" in
+            api|api-v1)
+                cd ~/n-compasstv/api-v1 && echo "🔧 API v1 project"
+                ;;
+            api-wt|worktree|worktrees)
+                cd ~/n-compasstv/api-v1-worktrees && echo "🌿 API v1 worktrees"
+                ;;
+            dash|dashboard)
+                cd ~/n-compasstv/dashboard-v1 && echo "📊 Dashboard v1 project"
+                ;;
+            dash-wt)
+                cd ~/n-compasstv/dashboard-v1-worktrees && echo "🌿 Dashboard v1 worktrees"
+                ;;
+            player|server)
+                cd ~/n-compasstv/player-server && echo "🎥 Player server project"
+                ;;
+            player-wt)
+                cd ~/n-compasstv/player-server-worktrees && echo "🌿 Player server worktrees"
+                ;;
+            ui|player-ui)
+                cd ~/n-compasstv/player-ui && echo "🎨 Player UI project"
+                ;;
+            *)
+                echo "❌ Unknown project: $1"
+                echo "Available: api, dash, player, ui, worktrees"
+                return 1
+                ;;
+        esac
+    fi
+}
+
+# Tab completion for ntv function
+_ntv_completion() {
+    local cur prev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    if [ ${COMP_CWORD} == 1 ]; then
+        COMPREPLY=($(compgen -W "api api-wt dash dash-wt player player-wt ui" -- ${cur}))
+    fi
+}
+complete -F _ntv_completion ntv
+
+# Project status overview
+ntv-status() {
+    echo "🏗️  N-CompassTV Project Status"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+    for project in api-v1 dashboard-v1 player-server player-ui; do
+        if [ -d ~/n-compasstv/$project ]; then
+            echo "📁 $project:"
+            if [ -d ~/n-compasstv/$project/.git ]; then
+                cd ~/n-compasstv/$project
+                echo "  Branch: $(git branch --show-current 2>/dev/null || echo 'unknown')"
+                echo "  Status: $(git status --porcelain 2>/dev/null | wc -l) changed files"
+            else
+                echo "  Status: Not a git repository"
+            fi
+        fi
+    done
+    cd ~/n-compasstv
+}
+
+# MySQL debugging workflow (from Warp Drive)
+ntv-mysql-debug() {
+    echo "🔍 MySQL Debugging Workflow - Environment Comparison First"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "Before diving deep - compare configurations:"
+    echo "  1. Compare .csproj files: grep -i mysql *.csproj"
+    echo "  2. Compare provider methods: grep -r 'UseMySQL\\|UseMySql' Models/"
+    echo "  3. Check for mixed providers: grep -E '(MySql\\.Data|Pomelo)' *.log"
+    echo ""
+    echo "💡 Remember: Never mix MySQL providers in the same project!"
+    echo "   • MySql.Data.EntityFrameworkCore → UseMySQL()"
+    echo "   • Pomelo.EntityFrameworkCore.MySql → UseMySql()"
+}
+
+# =============================================================================
+# ADDITIONAL ALIASES & FUNCTIONS
+# =============================================================================
+
+# Enhanced aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# Configuration shortcuts
+alias cdnvim='cd ~/.config/nvim'
+alias cddocs='cd ~/.config/nvim/docs'
+alias nvim-config='nvim ~/.config/nvim'
+alias bashrc-edit='nvim ~/dotfiles/shell/bashrc_wsl'
+alias dotfiles-edit='nvim ~/dotfiles/'
+
+# Git shortcuts
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git pull'
+alias gd='git diff'
+alias gb='git branch'
+alias gco='git checkout'
+alias glog='git log --oneline --graph --decorate'
+
+# .NET shortcuts
+alias dotnet-build='dotnet build'
+alias dotnet-run='dotnet run'
+alias dotnet-test='dotnet test'
+alias dotnet-restore='dotnet restore'
+alias dotnet-clean='dotnet clean'
+
+# Utility functions
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# Welcome message
+echo "⚡Hello Codeweaver!"
+if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
+    echo "⚡ Warp Terminal detected - AI features available"
+fi
+
+# Project paths - customize these for your environment
+if [[ -d "$HOME/n-compasstv" ]]; then
+    echo "📁 Projects: ~/n-compasstv | 🛠️  Config: ~/dotfiles"
+else
+    echo "🛠️  Config: ~/dotfiles"
+fi
+
+# PATH is handled by .bash_profile to avoid duplication
+export LESS="-qR"
+export PATH="$HOME/.local/bin:$PATH"
+[ -s "/home/pi/.deno/env" ] && . "/home/pi/.deno/env"

@@ -1,0 +1,79 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# Ble.sh Configuration for WSL
+# ══════════════════════════════════════════════════════════════════════════════
+# This file configures ble.sh (Bash Line Editor) for optimal performance in WSL.
+# Ble.sh provides advanced command-line editing features including:
+# - Real-time syntax highlighting
+# - Auto-completion
+# - Transient prompts (clean command history)
+# - Enhanced line editing capabilities
+#
+# Performance optimizations applied for WSL compatibility.
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Ble.sh configuration for transient prompts
+
+# Enable transient prompts
+bleopt prompt_ps1_transient=always
+bleopt prompt_rps1_transient=always
+
+# Configure what gets displayed after command execution (FAST in WSL)
+bleopt prompt_ps1_final='❯ '
+bleopt prompt_rps1_final=''
+
+# Additional performance and behavior options (moved to optimized section below)
+# bleopt complete_auto_complete=
+# bleopt complete_auto_history=
+# bleopt edit_abell=
+
+# Optional: Only make transient when in same directory (uncomment to enable)
+# bleopt prompt_ps1_transient=same-dir
+
+# Optional: Only preserve the last line of multiline prompts (uncomment to enable)  
+# bleopt prompt_ps1_transient=trim
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Performance-Optimized Settings for WSL
+# ═══════════════════════════════════════════════════════════════════════════
+
+# MAJOR PERFORMANCE IMPROVEMENTS:
+
+# 1. Disable per-keystroke filesystem checks (biggest WSL performance killer)
+bleopt highlight_filename=0
+
+# 2. Add delay before auto-completion kicks in (reduces CPU usage while typing)
+bleopt complete_auto_delay=150
+
+# 3. Reduce syntax evaluation frequency (still responsive, less CPU intensive)
+bleopt syntax_eval_polling_interval=100
+
+# 4. Increase sync timeout to prevent UI freezes on slower operations
+bleopt highlight_timeout_sync=200
+
+# 5. Disable command syntax verification on Enter (reduces lag when pressing Enter)
+bleopt edit_magic_accept=
+
+# 6. Disable visual bell/flashing for invalid operations (backspace on empty prompt, etc.)
+bleopt decode_error_kseq_vbell=0
+bleopt decode_error_char_vbell=0
+bleopt decode_error_cseq_vbell=0
+
+# 7. Keep audible bell disabled too (no beeping)
+bleopt decode_error_kseq_abell=0
+bleopt decode_error_char_abell=0
+bleopt decode_error_cseq_abell=0
+
+# 8. Disable all edit bells (no flashing for any edit operations)
+bleopt edit_bell=
+
+# 9. Disable visual bell duration (no flash duration)
+bleopt vbell_duration=0
+
+# KEEP THESE NICE FEATURES:
+# ✓ Syntax highlighting (highlight_syntax=1 - default)
+# ✓ Variable highlighting (highlight_variable=1 - default) 
+# ✓ Transient prompts (configured above)
+# ✓ Auto-completion (just delayed slightly)
+# ✓ History integration
+
+# ═══════════════════════════════════════════════════════════════════════════

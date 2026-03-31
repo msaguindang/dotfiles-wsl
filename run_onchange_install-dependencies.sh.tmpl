@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.os "linux" }}
+#!/usr/bin/env bash
+# Dependencies
+# Install Starship if missing
+if ! command -v starship >/dev/null 2>&1; then
+    echo "Installing Starship..."
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+fi
+{{ end }}

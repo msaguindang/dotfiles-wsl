@@ -1,0 +1,20 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = nvim
+	autocrlf = input
+
+[pull]
+	rebase = false
+
+[color]
+	ui = auto
+
+{{ if contains "microsoft" (lower .chezmoi.kernel.osrelease) }}
+	pager = less -qR
+{{ end }}
