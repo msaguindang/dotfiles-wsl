@@ -321,9 +321,22 @@ ntv-mysql-debug() {
 # =============================================================================
 
 # Enhanced aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza --color=auto --icons=always --group-directories-first'
+    alias ll='eza -alF --color=auto --icons=always --group-directories-first'
+    alias la='eza -A --color=auto --icons=always --group-directories-first'
+    alias l='eza -CF --color=auto --icons=always --group-directories-first'
+elif command -v lsd >/dev/null 2>&1; then
+    alias ls='lsd --color=auto --group-directories-first'
+    alias ll='lsd -alF --color=auto --group-directories-first'
+    alias la='lsd -A --color=auto --group-directories-first'
+    alias l='lsd -CF --color=auto --group-directories-first'
+else
+    alias ls='ls --color=auto -F'
+    alias ll='ls -alF'
+    alias la='ls -A'
+    alias l='ls -CF'
+fi
 alias ..='cd ..'
 alias ...='cd ../..'
 
