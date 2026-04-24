@@ -1,9 +1,141 @@
 #!/usr/bin/env bash
+set -euo pipefail
 {{ if eq .chezmoi.os "linux" }}
-# Dependencies
-# Install Starship if missing
+
+# =============================================================================
+# SYSTEM TOOLS
+# =============================================================================
+
+# Starship prompt
 if ! command -v starship >/dev/null 2>&1; then
-    echo "Installing Starship..."
+    echo "[deps] Installing starship..."
     curl -sS https://starship.rs/install.sh | sh -s -- --yes
 fi
+
+# eza (modern ls replacement) — via apt if available, else cargo
+if ! command -v eza >/dev/null 2>&1; then
+    echo "[deps] Installing eza..."
+    if apt-cache show eza >/dev/null 2>&1; then
+        sudo apt-get install -y eza
+    elif command -v cargo >/dev/null 2>&1; then
+        cargo install eza
+    else
+        echo "[deps] WARNING: eza not installed — no apt package and cargo missing"
+    fi
+fi
+
+# btop (system monitor)
+if ! command -v btop >/dev/null 2>&1; then
+    echo "[deps] Installing btop..."
+    sudo apt-get install -y btop
+fi
+
+# yazi (terminal file manager)
+if ! command -v yazi >/dev/null 2>&1; then
+    echo "[deps] Installing yazi..."
+    if command -v cargo >/dev/null 2>&1; then
+        cargo install --locked yazi-fm yazi-cli
+    else
+        echo "[deps] WARNING: yazi not installed — cargo missing"
+    fi
+fi
+
+# fastfetch (system info)
+if ! command -v fastfetch >/dev/null 2>&1; then
+    echo "[deps] Installing fastfetch..."
+    sudo apt-get install -y fastfetch
+fi
+
+# playerctl (media control, used by polybar music module)
+if ! command -v playerctl >/dev/null 2>&1; then
+    echo "[deps] Installing playerctl..."
+    sudo apt-get install -y playerctl
+fi
+
+# jq (JSON parser, used by weather script)
+if ! command -v jq >/dev/null 2>&1; then
+    echo "[deps] Installing jq..."
+    sudo apt-get install -y jq
+fi
+
+# keychain (SSH agent management)
+if ! command -v keychain >/dev/null 2>&1; then
+    echo "[deps] Installing keychain..."
+    sudo apt-get install -y keychain
+fi
+
+# xautolock (screen lock on idle)
+if ! command -v xautolock >/dev/null 2>&1; then
+    echo "[deps] Installing xautolock..."
+    sudo apt-get install -y xautolock
+fi
+
+# xclip (clipboard CLI)
+if ! command -v xclip >/dev/null 2>&1; then
+    echo "[deps] Installing xclip..."
+    sudo apt-get install -y xclip
+fi
+
+# flameshot (screenshot)
+if ! command -v flameshot >/dev/null 2>&1; then
+    echo "[deps] Installing flameshot..."
+    sudo apt-get install -y flameshot
+fi
+
+# dunst (notification daemon)
+if ! command -v dunst >/dev/null 2>&1; then
+    echo "[deps] Installing dunst..."
+    sudo apt-get install -y dunst
+fi
+
+# feh (wallpaper)
+if ! command -v feh >/dev/null 2>&1; then
+    echo "[deps] Installing feh..."
+    sudo apt-get install -y feh
+fi
+
+# rofi (launcher)
+if ! command -v rofi >/dev/null 2>&1; then
+    echo "[deps] Installing rofi..."
+    sudo apt-get install -y rofi
+fi
+
+# dex (XDG autostart)
+if ! command -v dex >/dev/null 2>&1; then
+    echo "[deps] Installing dex..."
+    sudo apt-get install -y dex
+fi
+
+# ripdrag (terminal drag-and-drop)
+if ! command -v ripdrag >/dev/null 2>&1; then
+    echo "[deps] Installing ripdrag..."
+    if command -v cargo >/dev/null 2>&1; then
+        cargo install ripdrag
+    else
+        echo "[deps] WARNING: ripdrag not installed — cargo missing"
+    fi
+fi
+
+# =============================================================================
+# RUNTIME: NVM + NODE
+# =============================================================================
+if [ ! -d "$HOME/.nvm" ]; then
+    echo "[deps] Installing nvm..."
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+    export NVM_DIR="$HOME/.nvm"
+    # shellcheck source=/dev/null
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    echo "[deps] Installing Node LTS..."
+    nvm install --lts
+fi
+
+# =============================================================================
+# RUNTIME: .NET (SDK)
+# =============================================================================
+if ! command -v dotnet >/dev/null 2>&1; then
+    echo "[deps] Installing .NET SDK..."
+    sudo apt-get install -y dotnet-sdk-8.0 || \
+        echo "[deps] WARNING: dotnet-sdk-8.0 not in apt — install manually from https://dot.net"
+fi
+
 {{ end }}
