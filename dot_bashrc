@@ -218,106 +218,6 @@ eval "$(starship init bash)"
 #     bleopt prompt_rps1_final='$(starship module time)'
 # fi
 # =============================================================================
-# N-COMPASSTV PROJECT NAVIGATION
-# =============================================================================
-
-# Project aliases
-alias cdntv='cd ~/n-compasstv'
-alias cdapi='cd ~/n-compasstv/api-v1'
-alias cdapi-wt='cd ~/n-compasstv/api-v1-worktrees'
-alias cddash='cd ~/n-compasstv/dashboard-v1'
-alias cddash-wt='cd ~/n-compasstv/dashboard-v1-worktrees'
-alias cdplayer='cd ~/n-compasstv/player-server'
-alias cdplayer-wt='cd ~/n-compasstv/player-server-worktrees'
-alias cdui='cd ~/n-compasstv/player-ui'
-
-# N-CompassTV navigation function with tab completion
-ntv() {
-    if [ $# -eq 0 ]; then
-        cd ~/n-compasstv
-        echo "📁 N-CompassTV root directory"
-        ls -1 ~/n-compasstv/ | sed 's/^/  • /'
-    else
-        case "$1" in
-            api|api-v1)
-                cd ~/n-compasstv/api-v1 && echo "🔧 API v1 project"
-                ;;
-            api-wt|worktree|worktrees)
-                cd ~/n-compasstv/api-v1-worktrees && echo "🌿 API v1 worktrees"
-                ;;
-            dash|dashboard)
-                cd ~/n-compasstv/dashboard-v1 && echo "📊 Dashboard v1 project"
-                ;;
-            dash-wt)
-                cd ~/n-compasstv/dashboard-v1-worktrees && echo "🌿 Dashboard v1 worktrees"
-                ;;
-            player|server)
-                cd ~/n-compasstv/player-server && echo "🎥 Player server project"
-                ;;
-            player-wt)
-                cd ~/n-compasstv/player-server-worktrees && echo "🌿 Player server worktrees"
-                ;;
-            ui|player-ui)
-                cd ~/n-compasstv/player-ui && echo "🎨 Player UI project"
-                ;;
-            *)
-                echo "❌ Unknown project: $1"
-                echo "Available: api, dash, player, ui, worktrees"
-                return 1
-                ;;
-        esac
-    fi
-}
-
-# Tab completion for ntv function
-_ntv_completion() {
-    local cur prev
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-
-    if [ ${COMP_CWORD} == 1 ]; then
-        COMPREPLY=($(compgen -W "api api-wt dash dash-wt player player-wt ui" -- ${cur}))
-    fi
-}
-complete -F _ntv_completion ntv
-
-# Project status overview
-ntv-status() {
-    echo "🏗️  N-CompassTV Project Status"
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-
-    for project in api-v1 dashboard-v1 player-server player-ui; do
-        if [ -d ~/n-compasstv/$project ]; then
-            echo "📁 $project:"
-            if [ -d ~/n-compasstv/$project/.git ]; then
-                cd ~/n-compasstv/$project
-                echo "  Branch: $(git branch --show-current 2>/dev/null || echo 'unknown')"
-                echo "  Status: $(git status --porcelain 2>/dev/null | wc -l) changed files"
-            else
-                echo "  Status: Not a git repository"
-            fi
-        fi
-    done
-    cd ~/n-compasstv
-}
-
-# MySQL debugging workflow (from Warp Drive)
-ntv-mysql-debug() {
-    echo "🔍 MySQL Debugging Workflow - Environment Comparison First"
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "Before diving deep - compare configurations:"
-    echo "  1. Compare .csproj files: grep -i mysql *.csproj"
-    echo "  2. Compare provider methods: grep -r 'UseMySQL\\|UseMySql' Models/"
-    echo "  3. Check for mixed providers: grep -E '(MySql\\.Data|Pomelo)' *.log"
-    echo ""
-    echo "💡 Remember: Never mix MySQL providers in the same project!"
-    echo "   • MySql.Data.EntityFrameworkCore → UseMySQL()"
-    echo "   • Pomelo.EntityFrameworkCore.MySql → UseMySql()"
-}
-
-# =============================================================================
-# ADDITIONAL ALIASES & FUNCTIONS
 # =============================================================================
 
 # Enhanced aliases
@@ -344,8 +244,8 @@ alias ...='cd ../..'
 alias cdnvim='cd ~/.config/nvim'
 alias cddocs='cd ~/.config/nvim/docs'
 alias nvim-config='nvim ~/.config/nvim'
-alias bashrc-edit='nvim ~/dotfiles/shell/bashrc_wsl'
-alias dotfiles-edit='nvim ~/dotfiles/'
+alias bashrc-edit='nvim ~/.local/share/chezmoi/dot_bashrc'
+alias dotfiles-edit='chezmoi cd'
 
 # Git shortcuts
 alias gs='git status'
@@ -371,16 +271,16 @@ mkcd() {
 }
 
 # Welcome message
-echo "⚡Hello Codeweaver!"
+echo "⚡Hello Pi!"
 if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
     echo "⚡ Warp Terminal detected - AI features available"
 fi
 
 # Project paths - customize these for your environment
 if [[ -d "$HOME/n-compasstv" ]]; then
-    echo "📁 Projects: ~/n-compasstv | 🛠️  Config: ~/dotfiles"
+    echo "📁 Projects: ~/n-compasstv | 🛠️  Config: ~/.local/share/chezmoi"
 else
-    echo "🛠️  Config: ~/dotfiles"
+    echo "🛠️  Config: ~/.local/share/chezmoi"
 fi
 
 # PATH is handled by .bash_profile to avoid duplication

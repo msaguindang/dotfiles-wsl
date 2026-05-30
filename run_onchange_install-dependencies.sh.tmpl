@@ -46,13 +46,7 @@ if ! command -v fastfetch >/dev/null 2>&1; then
     sudo apt-get install -y fastfetch
 fi
 
-# playerctl (media control, used by polybar music module)
-if ! command -v playerctl >/dev/null 2>&1; then
-    echo "[deps] Installing playerctl..."
-    sudo apt-get install -y playerctl
-fi
-
-# jq (JSON parser, used by weather script)
+# jq (JSON parser)
 if ! command -v jq >/dev/null 2>&1; then
     echo "[deps] Installing jq..."
     sudo apt-get install -y jq
@@ -62,58 +56,6 @@ fi
 if ! command -v keychain >/dev/null 2>&1; then
     echo "[deps] Installing keychain..."
     sudo apt-get install -y keychain
-fi
-
-# xautolock (screen lock on idle)
-if ! command -v xautolock >/dev/null 2>&1; then
-    echo "[deps] Installing xautolock..."
-    sudo apt-get install -y xautolock
-fi
-
-# xclip (clipboard CLI)
-if ! command -v xclip >/dev/null 2>&1; then
-    echo "[deps] Installing xclip..."
-    sudo apt-get install -y xclip
-fi
-
-# flameshot (screenshot)
-if ! command -v flameshot >/dev/null 2>&1; then
-    echo "[deps] Installing flameshot..."
-    sudo apt-get install -y flameshot
-fi
-
-# dunst (notification daemon)
-if ! command -v dunst >/dev/null 2>&1; then
-    echo "[deps] Installing dunst..."
-    sudo apt-get install -y dunst
-fi
-
-# feh (wallpaper)
-if ! command -v feh >/dev/null 2>&1; then
-    echo "[deps] Installing feh..."
-    sudo apt-get install -y feh
-fi
-
-# rofi (launcher)
-if ! command -v rofi >/dev/null 2>&1; then
-    echo "[deps] Installing rofi..."
-    sudo apt-get install -y rofi
-fi
-
-# dex (XDG autostart)
-if ! command -v dex >/dev/null 2>&1; then
-    echo "[deps] Installing dex..."
-    sudo apt-get install -y dex
-fi
-
-# ripdrag (terminal drag-and-drop)
-if ! command -v ripdrag >/dev/null 2>&1; then
-    echo "[deps] Installing ripdrag..."
-    if command -v cargo >/dev/null 2>&1; then
-        cargo install ripdrag
-    else
-        echo "[deps] WARNING: ripdrag not installed — cargo missing"
-    fi
 fi
 
 # =============================================================================
