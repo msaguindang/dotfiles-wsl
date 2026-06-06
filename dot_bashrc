@@ -158,8 +158,8 @@ alias ...='cd ../..'
 alias cdnvim='cd ~/.config/nvim'
 alias cddocs='cd ~/.config/nvim/docs'
 alias nvim-config='nvim ~/.config/nvim'
-alias bashrc-edit='nvim ~/dotfiles/wsl/.bashrc'
-alias dotfiles-edit='nvim ~/dotfiles/'
+alias bashrc-edit='nvim ~/dotfiles-wsl/dot_bashrc'
+alias dotfiles-edit='nvim ~/dotfiles-wsl/'
 
 # Git shortcuts
 alias gs='git status'
@@ -189,9 +189,9 @@ echo "⚡Hello Codeweaver!"
 
 # Project paths - customize these for your environment
 if [[ -d "$HOME/n-compasstv" ]]; then
-    echo "📁 Projects: ~/n-compasstv | 🛠️  Config: ~/dotfiles"
+    echo "📁 Projects: ~/n-compasstv | 🛠️  Config: ~/dotfiles-wsl"
 else
-    echo "🛠️  Config: ~/dotfiles"
+    echo "🛠️  Config: ~/dotfiles-wsl"
 fi
 
 # PATH is handled by .bash_profile to avoid duplication

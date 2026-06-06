@@ -8,13 +8,10 @@
 [core]
 	editor = nvim
 	autocrlf = input
-
+{{ if contains "microsoft" (lower .chezmoi.kernel.osrelease) }}	pager = less -qR
+{{ end }}
 [pull]
 	rebase = false
 
 [color]
 	ui = auto
-{{ if contains "microsoft" (lower .chezmoi.kernel.osrelease) }}
-[core]
-	pager = less -qR
-{{ end }}
